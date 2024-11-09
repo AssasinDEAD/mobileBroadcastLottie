@@ -1,9 +1,11 @@
 package com.example.homework_4_5.components
 
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
+import android.os.Build
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -12,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import android.content.BroadcastReceiver
 
 class BatteryReceiver : BroadcastReceiver() {
     var batteryLevel = mutableStateOf(0)
@@ -40,6 +41,9 @@ fun MainScreen() {
         }
     }
 
+    val deviceModel = Build.MODEL
+    val deviceManufacturer = Build.MANUFACTURER
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -47,6 +51,14 @@ fun MainScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Уровень заряда батареи: $batteryLevel%", fontSize = 24.sp)
+        Text(
+            text = "Привет, устройство $deviceManufacturer $deviceModel!",
+            fontSize = 24.sp
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "Твой заряд: $batteryLevel%",
+            fontSize = 20.sp
+        )
     }
 }
